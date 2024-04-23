@@ -1,3 +1,5 @@
+# jgj891
+# 54pf
 import requests
 from time import sleep
 import itertools
@@ -26,17 +28,21 @@ def test_generate_strings():
                     f.write("\n".join(tested))
                 tested = []
             payload = {"abc123": "jgj891", "challenge": line.strip()}
-            result = requests.post(
-                "http://10.100.118.111:8000/fuzzme/", headers=headers, data=payload
-            )
+            try:
+                result = requests.post(
+                    "http://10.100.118.111:8000/fuzzme/", headers=headers, data=payload
+                )
+            except requests.exceptions.RequestException as e:
+                print(f"Error: {e}")
+                break
             if result.text != "FAIL":
                 print(f"Found the string: {line.strip()}")
                 break
-            sleep(0.1)
+            sleep(0.01)
 
 
 if __name__ == "__main__":
-    # result = generate_strings()
-    # with open("fuzzed.txt", "w") as f:
-    #     f.write("\n".join(result))
+    result = generate_strings()
+    with open("fuzzed.txt", "w") as f:
+        f.write("\n".join(result))
     test_generate_strings()

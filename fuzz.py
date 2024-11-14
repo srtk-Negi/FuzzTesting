@@ -11,7 +11,7 @@ def generate_strings():
         for combo_alpha in itertools.product("abcdefghijklmnopqrstuvwxyz", repeat=2):
             generated_string = "".join(combo) + "".join(combo_alpha)
             strings_list.append(generated_string)
-            
+
     with open("fuzzed.txt", "w") as f:
         f.write("\n".join(strings_list))
 
@@ -44,5 +44,5 @@ def test_generate_strings():
 
 
 if __name__ == "__main__":
-    # generate_strings() // uncomment if string file not already created
-    test_generate_strings()
+    generate_strings()
+    # test_generate_strings()
